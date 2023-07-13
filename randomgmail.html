@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Random Email and Password Generator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background: linear-gradient(to right, #FFC371, #FF5F6D);
+    }
+
+    .container {
+      width: 90%;
+      max-width: 400px;
+      background-color: #FFFFFF;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .btn {
+      padding: 10px 20px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+    .result {
+      margin-top: 20px;
+      font-weight: bold;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <h1>Random Email and Password Generator</h1>
+
+  <div class="container">
+    <div>
+      <div class="form-group">
+        <label for="email-length">Email Length:</label>
+        <input type="number" id="email-length" min="1">
+      </div>
+      <div class="form-group">
+        <label for="password-length">Password Length:</label>
+        <input type="number" id="password-length" min="1">
+      </div>
+      <button class="btn" onclick="generateCredentials()">Generate</button>
+      <div class="result" id="result"></div>
+    </div>
+  </div>
+
+  <script>
+    function generateRandomEmail(length) {
+      var username = generateRandomString(length);
+      var domain = generateRandomString(5);
+      var extension = ['com', 'net', 'org'][Math.floor(Math.random() * 3)];
+      var email = username + '@' + domain + '.' + extension;
+      return email;
+    }
+
+    function generateRandomPassword(length) {
+      var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()-=_+';
+      var password = generateRandomString(length, characters);
+      return password;
+    }
+
+    function generateRandomString(length, characters) {
+      characters = characters || 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+      var result = '';
+      for (var i = 0; i < length; i++) {
+        result += characters.charAt(Math.floor(Math.random() * characters.length));
+      }
+      return result;
+    }
+
+    function generateCredentials() {
+      var emailLength = parseInt(document.getElementById('email-length').value);
+      var passwordLength = parseInt(document.getElementById('password-length').value);
+
+      var randomEmail = generateRandomEmail(emailLength);
+      var randomPassword = generateRandomPassword(passwordLength);
+
+      var resultText = 'Random Email: ' + randomEmail + '<br>Random Password: ' + randomPassword;
+
+      document.getElementById('result').innerHTML = resultText;
+    }
+  </script>
+</body>
+</html>
